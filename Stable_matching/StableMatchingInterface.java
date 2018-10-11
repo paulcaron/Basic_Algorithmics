@@ -32,9 +32,9 @@ public interface StableMatchingInterface {
     int[][] womenPrefs
   );
 
-  // The method constructStableMatching must return an int[m][w] array
+  // The method constructStableMatching returns an int[m][w] array
   // "mar".  The element mar[i][j] represents the number of couples in the matching 
   // with the groom belonging to the i-th group of men and the bride belinging to
-  // the j-th group of women. This array must describe a stable matching.
+  // the j-th group of women. This array describes a stable matching.
 }
 
