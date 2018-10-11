@@ -8,40 +8,40 @@ public int[][] constructStableMatching (int[] menGroupCount, int[] womenGroupCou
 		 int m=menGroupCount.length;
 		 int w=womenGroupCount.length;
 		 int[][] matching = new int[m][w];
-		 int[] aux = new int[m];					//aux[i] désigne le rang dans l'ordre de préférence du groupe de femmes auquel i devra se proposer au prochain passage
+		 int[] aux = new int[m];					//aux[i] refers to the rank in preference order of women's group
 		 int[] numberCelibGroupMen=new int[m];
 		 int[] numberCelibGroupWomen=new int[w];
-		 int[][] womenPrefValue = new int[w][m];	//womenPrefValue[w][m] désigne le classement de m dans l'ordre de préférence de w. En particulier : womenPrefs[w][womenPrefValue[m]]=m et womenPrefValue[w][WomenPrefs[i]]=i    
-		 PriorityQueue<PairCelib> queue=new PriorityQueue<PairCelib>(); //stocke la liste des groupes d'hommes en partant de celui avec le plus grand nombre de célibataires
-		 ArrayList<PriorityQueue<Integer>> queuesWomen = new ArrayList<PriorityQueue<Integer>>(); // queuesWomen[w] stocke la liste des opposés des indices des groupes d'hommes avec lesquels des femmes du groupe w sont engagés
+		 int[][] womenPrefValue = new int[w][m];	//womenPrefValue[w][m] referes to the ranking of in the preference order of w. Especially, womenPrefs[w][womenPrefValue[m]]=m and womenPrefValue[w][WomenPrefs[i]]=i    
+		 PriorityQueue<PairCelib> queue=new PriorityQueue<PairCelib>(); //stores the list of men's groups starting with the highest number of singles
+		 ArrayList<PriorityQueue<Integer>> queuesWomen = new ArrayList<PriorityQueue<Integer>>(); // queuesWomen[w] stores the list of the negative index of men's groups to which women of w are engaged
 		 
-		 for(int i=0; i<m; i++) {								// calcul de n, initialisation de numberCelibGroupMen et queue
+		 for(int i=0; i<m; i++) {								// compute n, initialize numberCelibGroupMen and queue
 			 n+=menGroupCount[i];
 			 numberCelibGroupMen[i]=menGroupCount[i];
 			 queue.add(new PairCelib(menGroupCount[i],i));
 		 }
-		 for(int j=0;j<w;j++) {									//initialisation de numberCelibGroupWomen et queueWomen
+		 for(int j=0;j<w;j++) {									//initialize numberCelibGroupWomen and queueWomen
 			 numberCelibGroupWomen[j]=womenGroupCount[j];
 			 queuesWomen.add(new PriorityQueue<Integer>(m));
 		 }
 		 
-		 for(int women=0;women<w;women++) {						//initialisation de womenPrefValue
+		 for(int women=0;women<w;women++) {						//initialize womenPrefValue
 			 for(int i=0;i<m;i++) {
 				 womenPrefValue[women][womenPrefs[women][i]]=i;
 			 }
 		 }
 		 
-		 int numberCelib=n;										//initialisation du njombre de célibataires restants
+		 int numberCelib=n;										//initialize the number of remaining singles
 		 
 		 
 		 
 		 while(numberCelib>0) {
 			 PairCelib p = queue.poll();
 			 int indexMen=p.menGroupIndex;
-			 if(p.nbCelib!=numberCelibGroupMen[indexMen]) continue; //on vérifie que p est bien une paire stockée valide
+			 if(p.nbCelib!=numberCelibGroupMen[indexMen]) continue; //check that pair p is stored and valid
 			 
 			 
-			 boolean married = false;								//on initialise un boolean qui permettra qui s'assurera que indexMen se propose à un groupe de femmes
+			 boolean married = false;								//initialize a boolean to ensure that indexMen proposes to a group
 			 while(!married) {
 				 int indexPreference=aux[indexMen];
 				 int indexWomen=menPrefs[indexMen][indexPreference];
