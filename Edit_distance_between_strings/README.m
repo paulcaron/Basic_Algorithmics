@@ -1,4 +1,4 @@
-#Computing the Edit Distance Between Strings
+# Computing the Edit Distance Between Strings
 
 Given two strings A and B (lengths m and n) this program computes the optimal sequence of edit operations that can transform A to B.
 It uses three operations:
